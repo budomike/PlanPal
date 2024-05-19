@@ -1,4 +1,4 @@
-import { CustomerField } from '@/app/lib/definitions';
+import { UserField } from '@/app/lib/definitions';
 import Link from 'next/link';
 import {
   CheckIcon,
@@ -8,7 +8,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
 
-export default function Form({ customers }: { customers: CustomerField[] }) {
+export default function Form({ users }: { users: UserField[] }) {
   return (
     <form>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
@@ -27,9 +27,9 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
               <option value="" disabled>
                 Select a customer
               </option>
-              {customers.map((customer) => (
-                <option key={customer.id} value={customer.id}>
-                  {customer.name}
+              {users.map((users) => (
+                <option key={users.id} value={users.id}>
+                  {users.name}
                 </option>
               ))}
             </select>

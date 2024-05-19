@@ -42,6 +42,7 @@ export type EventAttendees = {
 
 export type EventForm = {
   id: string,
+  host_id: string,
   title: string,
   description: string, 
   date: string,
