@@ -28,7 +28,7 @@ export type UserField = {
 };
 
 export type Event = {
-  image_url: string,
+  image_url: string;
   id: string;
   host_id: string;
   title: string;
@@ -37,7 +37,7 @@ export type Event = {
 };
 
 export type EventAttendees = {
-  id: string;
+  event_id: string;
   user_id: string;
   status: 'attending' | 'maybe' | 'not attending';
 };
