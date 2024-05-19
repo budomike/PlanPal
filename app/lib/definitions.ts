@@ -4,6 +4,7 @@ export type User = {
   email: string;
   password: string;
   image_url: string;
+  status: 'attending' | 'maybe' | 'not attending';
 };
 
 export type UsersTableType = {
@@ -18,6 +19,7 @@ export type FormattedUsersTable = {
   name: string;
   email: string;
   image_url: string;
+  status: 'attending' | 'maybe' | 'not attending';
 };
 
 export type UserField = {
