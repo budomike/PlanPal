@@ -46,3 +46,11 @@ export type EventForm = {
   description: string, 
   date: string,
 }
+
+export type UpcomingEvent = {
+  image_url: string,
+  id: string;
+  host_id: string;
+  title: string;
+  date: string;
+}
