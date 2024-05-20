@@ -58,7 +58,8 @@ async function seedEvents(client) {
         host_id UUID NOT NULL REFERENCES users(id),
         title VARCHAR(255) NOT NULL,
         description TEXT NOT NULL,
-        date DATE NOT NULL
+        date DATE NOT NULL,
+        time STRING NOT NULL
       );
     `;
 
@@ -68,8 +69,8 @@ async function seedEvents(client) {
     const insertedEvents = await Promise.all(
       events.map(
         (event) => client.sql`
-        INSERT INTO events (id, host_id, title, description, date)
-        VALUES (${event.id}, ${event.host_id}, ${event.title}, ${event.description}, ${event.date})
+        INSERT INTO events (id, host_id, title, description, date, time)
+        VALUES (${event.id}, ${event.host_id}, ${event.title}, ${event.description}, ${event.date}, ${event.time})
         ON CONFLICT (id) DO NOTHING;
       `,
       ),

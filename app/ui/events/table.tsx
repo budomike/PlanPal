@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { UpdateInvoice, DeleteInvoice } from '@/app/ui/events/buttons';
+import { UpdateEvent, DeleteEvent } from '@/app/ui/events/buttons';
 import InvoiceStatus from '@/app/ui/events/status';
 import { formatDateToLocal } from '@/app/lib/utils';
 import { fetchFilteredEvents } from '@/app/lib/data';
@@ -63,14 +63,17 @@ export default async function EventsTable({
                   Title
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
+                  Description
+                </th>
+                <th scope="col" className="px-3 py-5 font-medium">
                   Date
+                </th>
+                <th scope="col" className="px-3 py-5 font-medium">
+                  Time
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
                   Who's Attending
                 </th>
-                {/* <th scope="col" className="px-3 py-5 font-medium">
-                  Status
-                </th> */}
                 <th scope="col" className="relative py-3 pl-6 pr-3">
                   <span className="sr-only">Edit</span>
                 </th>
@@ -98,7 +101,13 @@ export default async function EventsTable({
                     {events.title}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
+                    {events.description}
+                  </td>
+                  <td className="whitespace-nowrap px-3 py-3">
                     {formatDateToLocal(events.date)}
+                  </td>
+                  <td className="whitespace-nowrap px-3 py-3">
+                    {events.time}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
                   <div className="flex space-x-2">

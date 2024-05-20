@@ -1,9 +1,9 @@
 'use client';
 
 import {
-  UserGroupIcon,
   HomeIcon,
   DocumentDuplicateIcon,
+  CalendarIcon
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -16,7 +16,7 @@ const links = [
   {
     name: 'Events',
     href: '/dashboard/events',
-    icon: DocumentDuplicateIcon,
+    icon: CalendarIcon,
   },
 ];
 

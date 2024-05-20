@@ -5,7 +5,8 @@ import {
   User,
   Event,
   EventForm,
-  EventsTable
+  EventsTable,
+  UpcomingEvent
 } from './definitions';
 import { unstable_noStore as noStore } from 'next/cache';
 
@@ -40,6 +41,7 @@ export async function fetchFilteredEvents(
         events.title,
         events.description,
         events.date,
+        events.time,
         users.id,
         users.name,
         users.email,
@@ -48,14 +50,14 @@ export async function fetchFilteredEvents(
           SELECT json_agg(json_build_object('user_id', ua.id, 'image_url', ua.image_url))
           FROM users AS ua
           JOIN event_attendees AS ea ON ua.id = ea.user_id
-          WHERE ea.event_id = events.id
+          WHERE ea.event_id = events.id AND ea.status = 'attending'
         ) AS attendees
       FROM events
       JOIN users ON events.host_id = users.id
       WHERE
         users.name ILIKE ${`%${query}%`} OR
         events.title ILIKE ${`%${query}%`}
-      ORDER BY events.date ASC
+      ORDER BY events.date ASC, events.time ASC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
 
@@ -88,25 +90,31 @@ export async function fetchEventsPages(query: string) {
   }
 }
 
-// export async function fetchUpcomingEvents() {
-//   noStore();
-//   try {
-//     const data = await sql<UpcomingEventsRaw>`
-//       SELECT invoices.amount, users.name, customers.image_url, customers.email, invoices.id
-//       FROM events
-//       JOIN customers ON invoices.customer_id = customers.id
-//       ORDER BY invoices.date DESC
-//       LIMIT 5`;
+export async function fetchUpcomingEvents() {
+  noStore();
+  try {
+    const data = await sql<UpcomingEvent>`
+      SELECT 
+      events.id, 
+      events.title, 
+      events.date,
+      events.time,
+      users.name,
+      users.image_url
+      FROM events
+      JOIN users ON events.host_id = users.id
+      ORDER BY events.date ASC, events.time ASC
+      LIMIT 5`;
 
-//     const upcomingEvents = data.rows.map((events) => ({
-//       ...events,
-//     }));
-//     return upcomingEvents;
-//   } catch (error) {
-//     console.error('Database Error:', error);
-//     throw new Error('Failed to fetch the upcoming events.');
-//   }
-// }
+    const upcomingEvents = data.rows.map((events) => ({
+      ...events,
+    }));
+    return upcomingEvents;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch the upcoming events.');
+  }
+}
 
 export async function fetchUsers() {
   noStore();
@@ -114,7 +122,8 @@ export async function fetchUsers() {
     const data = await sql<UserField>`
       SELECT
         id,
-        name
+        name,
+        image_url
       FROM users
       ORDER BY name ASC
     `;

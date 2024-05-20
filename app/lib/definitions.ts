@@ -4,7 +4,7 @@ export type User = {
   email: string;
   password: string;
   image_url: string;
-  status: 'attending' | 'maybe' | 'not attending';
+  status: 'attending' | 'maybe' | 'not attending' | 'invited';
 };
 
 export type UsersTableType = {
@@ -19,12 +19,13 @@ export type FormattedUsersTable = {
   name: string;
   email: string;
   image_url: string;
-  status: 'attending' | 'maybe' | 'not attending';
+  status: 'attending' | 'maybe' | 'not attending' | 'invited';
 };
 
 export type UserField = {
   id: string;
   name: string;
+  image_url: string;
 };
 
 export type EventsTable = {
@@ -33,6 +34,7 @@ export type EventsTable = {
   title: string;
   description: string;
   date: string;
+  time: string;
   image_url: string;
   name: string;
   email: string;
@@ -47,12 +49,13 @@ export type Event = {
   title: string;
   description: string;
   date: string;
+  time: string;
 };
 
 export type EventAttendees = {
   event_id: string;
   user_id: string;
-  status: 'attending' | 'maybe' | 'not attending';
+  status: 'attending' | 'maybe' | 'not attending' | 'invited';
 };
 
 export type EventForm = {
@@ -61,6 +64,7 @@ export type EventForm = {
   title: string,
   description: string, 
   date: string,
+  time: string;
 }
 
 export type UpcomingEvent = {
@@ -69,4 +73,6 @@ export type UpcomingEvent = {
   host_id: string;
   title: string;
   date: string;
+  name: string;
+  time: string;
 }
