@@ -27,6 +27,18 @@ export type UserField = {
   name: string;
 };
 
+export type EventsTable = {
+  id: string;
+  host_id: string;
+  title: string;
+  description: string;
+  date: string;
+  image_url: string;
+  name: string;
+  email: string;
+  user_id: string;
+}
+
 export type Event = {
   image_url: string;
   id: string;

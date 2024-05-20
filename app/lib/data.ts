@@ -4,10 +4,10 @@ import {
   UsersTableType,
   User,
   Event,
-  EventForm
+  EventForm,
+  EventsTable
 } from './definitions';
 import { unstable_noStore as noStore } from 'next/cache';
-import { events } from './placeholder-data';
 
 export async function fetchEvent() {
 
@@ -34,24 +34,22 @@ export async function fetchFilteredEvents(
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   try {
-    const events = await sql<Event>`
+    const events = await sql<EventsTable>`
       SELECT
         events.id,
         events.title,
         events.description,
         events.date,
+        users.id,
         users.name,
         users.email,
         users.image_url
       FROM events
-      JOIN users ON events.users_id = users.id
+      JOIN users ON events.host_id = users.id
       WHERE
         users.name ILIKE ${`%${query}%`} OR
-        users.email ILIKE ${`%${query}%`} OR
-        events.amount::text ILIKE ${`%${query}%`} OR
-        events.date::text ILIKE ${`%${query}%`} OR
         events.title ILIKE ${`%${query}%`}
-      ORDER BY events.date DESC
+      ORDER BY events.date ASC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
 
@@ -84,6 +82,25 @@ export async function fetchEventsPages(query: string) {
   }
 }
 
+// export async function fetchUpcomingEvents() {
+//   noStore();
+//   try {
+//     const data = await sql<UpcomingEventsRaw>`
+//       SELECT invoices.amount, users.name, customers.image_url, customers.email, invoices.id
+//       FROM events
+//       JOIN customers ON invoices.customer_id = customers.id
+//       ORDER BY invoices.date DESC
+//       LIMIT 5`;
+
+//     const upcomingEvents = data.rows.map((events) => ({
+//       ...events,
+//     }));
+//     return upcomingEvents;
+//   } catch (error) {
+//     console.error('Database Error:', error);
+//     throw new Error('Failed to fetch the upcoming events.');
+//   }
+// }
 
 export async function fetchUsers() {
   noStore();
