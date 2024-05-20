@@ -37,6 +37,7 @@ export type EventsTable = {
   name: string;
   email: string;
   user_id: string;
+  attendees: Array<{ user_id: string; image_url: string }>;
 }
 
 export type Event = {

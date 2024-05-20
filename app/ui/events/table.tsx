@@ -3,6 +3,7 @@ import { UpdateInvoice, DeleteInvoice } from '@/app/ui/events/buttons';
 import InvoiceStatus from '@/app/ui/events/status';
 import { formatDateToLocal } from '@/app/lib/utils';
 import { fetchFilteredEvents } from '@/app/lib/data';
+import clsx from 'clsx';
 
 export default async function EventsTable({
   query,
@@ -65,7 +66,7 @@ export default async function EventsTable({
                   Date
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  People Attending
+                  Who's Attending
                 </th>
                 {/* <th scope="col" className="px-3 py-5 font-medium">
                   Status
@@ -98,6 +99,18 @@ export default async function EventsTable({
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
                     {formatDateToLocal(events.date)}
+                  </td>
+                  <td className="whitespace-nowrap px-3 py-3">
+                  <div className="flex space-x-2">
+                  {events.attendees?.map((attendee) => (
+                  <img
+                    key={attendee.user_id}
+                    src={attendee.image_url}
+                    alt="Attendee"
+                    className="h-8 w-8 rounded-full"
+                  />
+                ))}
+              </div>
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">

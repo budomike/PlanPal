@@ -25,7 +25,7 @@ export async function fetchEvent() {
 }
 
 
-const ITEMS_PER_PAGE = 9;
+const ITEMS_PER_PAGE = 8;
 export async function fetchFilteredEvents(
   query: string,
   currentPage: number,
@@ -43,7 +43,13 @@ export async function fetchFilteredEvents(
         users.id,
         users.name,
         users.email,
-        users.image_url
+        users.image_url,
+        (
+          SELECT json_agg(json_build_object('user_id', ua.id, 'image_url', ua.image_url))
+          FROM users AS ua
+          JOIN event_attendees AS ea ON ua.id = ea.user_id
+          WHERE ea.event_id = events.id
+        ) AS attendees
       FROM events
       JOIN users ON events.host_id = users.id
       WHERE
@@ -65,7 +71,7 @@ export async function fetchEventsPages(query: string) {
   try {
     const count = await sql`SELECT COUNT(*)
     FROM events
-    JOIN users ON events.users_id = users.id
+    JOIN users ON events.host_id = users.id
     WHERE
       users.name ILIKE ${`%${query}%`} OR
       users.email ILIKE ${`%${query}%`} OR
@@ -162,97 +168,4 @@ export async function getUser(email: string) {
   }
 }
 
-export async function fetchEventById(id: string) {
-  noStore();
-  try {
-    const data = await sql<EventForm>`
-      SELECT
-        events.id,
-        events.host_id,
-        events.title,
-        events.description,
-        events.date,
-      FROM events
-      WHERE events.id = ${id};
-    `;
 
-    const event = data.rows.map((events) => ({
-      ...events,
-    }));
-
-    return event[0];
-  } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch event.');
-  }
-}
-
-// const loggedInUserId = '410544b2-4001-4271-9855-fec4b6a6442a'; // Assume this is the logged-in user's ID
-
-// async function fetchEvents() {
-//   const client = await db.connect();
-
-//   try {
-//     const eventsData = await client.sql`
-//       SELECT e.*, u.name AS host_name
-//       FROM events e
-//       JOIN users u ON e.host_id = u.id
-//       ORDER BY e.date ASC;
-//     `;
-
-//     const events = await Promise.all(eventsData.map(async event => {
-//       const attendeesData = await client.sql`
-//         SELECT ea.*, u.name AS attendee_name
-//         FROM event_attendees ea
-//         JOIN users u ON ea.user_id = u.id
-//         WHERE ea.event_id = ${event.id};
-//       `;
-      
-//       const attendees = attendeesData.map(attendee => ({
-//         id: attendee.user_id,
-//         name: attendee.user_id === loggedInUserId ? '(You)' : attendee.attendee_name,
-//         status: attendee.status,
-//       }));
-
-//       return {
-//         ...event,
-//         host_name: event.host_id === loggedInUserId ? '(You)' : event.host_name,
-//         attendees,
-//       };
-//     }));
-
-//     console.log(events);
-
-//     return events;
-//   } catch (error) {
-//     console.error('Error fetching events:', error);
-//     throw error;
-//   } finally {
-//     await client.end();
-//   }
-// }
-
-// async function updateAttendance(eventId, userId, status) {
-//   const client = await db.connect();
-
-//   try {
-//     const result = await client.sql`
-//       INSERT INTO event_attendees (event_id, user_id, status)
-//       VALUES (${eventId}, ${userId}, ${status})
-//       ON CONFLICT (event_id, user_id) 
-//       DO UPDATE SET status = ${status}
-//       RETURNING *;
-//     `;
-
-//     console.log(`Updated attendance for event ${eventId}, user ${userId}:`, result);
-//   } catch (error) {
-//     console.error('Error updating attendance:', error);
-//     throw error;
-//   } finally {
-//     await client.end();
-//   }
-// }
-
-// Example usage
-// fetchEvents();
-// updateAttendance('1', loggedInUserId, 'attending');
