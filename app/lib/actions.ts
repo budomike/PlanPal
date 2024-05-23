@@ -1,6 +1,8 @@
 'use server';
 import { sql } from '@vercel/postgres';
 const { v4: uuidv4 } = require('uuid');
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
  
 export async function createEvent(formData: FormData) {
     const rawFormData = {
@@ -27,4 +29,6 @@ for (const inviteeId of invitees) {
         VALUES (${eventId}, ${inviteeId}, 'invited')
     `;
 }
+revalidatePath('/dashboard/events');
+redirect('/dashboard/events');
 }

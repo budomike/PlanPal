@@ -2,7 +2,6 @@ import { UserField } from '@/app/lib/definitions';
 import Link from 'next/link';
 import {
   PencilIcon,
-  UserCircleIcon,
   InformationCircleIcon
 } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
@@ -86,6 +85,7 @@ export default function Form({ users }: { users: UserField[] }) {
         </div>
 
         {/* Invites*/}
+        <fieldset>
         <div className="mb-4">
           <label htmlFor="invitees" className="mb-2 block text-sm font-medium">
             Invite Friends
@@ -109,7 +109,9 @@ export default function Form({ users }: { users: UserField[] }) {
             ))}
           </div>
         </div>
+        </fieldset>
       </div>
+      
 
       <div className="mt-6 flex justify-end gap-4">
         <Link

@@ -6,7 +6,8 @@ import {
   Event,
   EventForm,
   EventsTable,
-  UpcomingEvent
+  UpcomingEvent,
+  EventAttendees
 } from './definitions';
 import { unstable_noStore as noStore } from 'next/cache';
 
@@ -166,15 +167,59 @@ export async function fetchFilteredUsers(query: string) {
   }
 }
 
-export async function getUser(email: string) {
+export async function fetchInvitees(eventId: string) {
   noStore();
   try {
-    const user = await sql`SELECT * FROM users WHERE email=${email}`;
-    return user.rows[0] as User;
+    const result = await sql<EventAttendees>`
+    SELECT user_id
+    FROM event_attendees
+    WHERE event_id = ${eventId}
+  `;
+  return result.rows.map(row => row.user_id);
   } catch (error) {
     console.error('Failed to fetch user:', error);
     throw new Error('Failed to fetch user.');
   }
 }
 
+export async function fetchInviteesByEventId(eventId: string) {
+  try {
+    const result = await sql<EventAttendees>`
+      SELECT event_id, user_id, status
+      FROM event_attendees
+      WHERE event_id = ${eventId}
+    `;
+    return result.rows;
+  } catch (error) {
+    console.error('Failed to fetch invitees:', error);
+    throw new Error('Failed to fetch invitees.');
+  }
+}
+
+export async function fetchEventById(id: string) {
+  noStore();
+  try {
+    const data = await sql<EventForm>`
+      SELECT
+        events.id,
+        events.host_id,
+        events.title,
+        events.description,
+        events.date,
+        events.time
+      FROM events
+      WHERE events.id = ${id};
+    `;
+
+    const event = data.rows.map((event) => ({
+      ...event,
+    }));
+    console.log(event[0]);
+    return event[0];
+    // return data.rows[0] || null;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch invoice.');
+  }
+}
 

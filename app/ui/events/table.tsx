@@ -19,35 +19,35 @@ export default async function EventsTable({
       <div className="inline-block min-w-full align-middle">
         <div className="rounded-lg bg-gray-50 p-2 md:pt-0">
           <div className="md:hidden">
-            {events?.map((events) => (
+            {events?.map((event) => (
               <div
-                key={events.id}
+                key={event.id}
                 className="mb-2 w-full rounded-md bg-white p-4"
               >
                 <div className="flex items-center justify-between border-b pb-4">
                   <div>
                     <div className="mb-2 flex items-center">
                       <Image
-                        src={events.image_url}
+                        src={event.image_url}
                         className="mr-2 rounded-full"
                         width={28}
                         height={28}
-                        alt={`${events.host_id}'s profile picture`}
+                        alt={`${event.host_id}'s profile picture`}
                       />
-                      <p>{events.host_id}</p>
+                      <p>{event.host_id}</p>
                     </div>
-                    <p className="text-sm text-gray-500">{events.title}</p>
+                    <p className="text-sm text-gray-500">{event.title}</p>
                   </div>
                 </div>
                 <div className="flex w-full items-center justify-between pt-4">
                   <div>
                     <p className="text-xl font-medium">
                     </p>
-                    <p>{formatDateToLocal(events.date)}</p>
+                    <p>{formatDateToLocal(event.date)}</p>
                   </div>
                   <div className="flex justify-end gap-2">
-                    {/* <UpdateInvoice id={invoice.id} />
-                    <DeleteInvoice id={invoice.id} /> */}
+                     <UpdateEvent id={event.id} />
+                    {/*<DeleteInvoice id={invoice.id} /> */}
                   </div>
                 </div>
               </div>
@@ -123,8 +123,8 @@ export default async function EventsTable({
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
-                      {/* <UpdateInvoice id={invoice.id} />
-                      <DeleteInvoice id={invoice.id} /> */}
+                      <UpdateEvent id={events.id} />
+                      {/*<DeleteInvoice id={invoice.id} /> */}
                     </div>
                   </td>
                 </tr>
