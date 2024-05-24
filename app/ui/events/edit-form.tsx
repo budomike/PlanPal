@@ -12,18 +12,16 @@ import { UpdateEvent } from './buttons';
 export default function EditEventForm({
   event,
   users,
-  invitees,
 }: {
   event: EventForm;
   users: UserField[];
-  invitees: EventAttendees[];
 }) {
   // // const updateInvoiceWithId = updateEvent.bind(null, invoice.id);
   // const getInviteeStatus = (userId: string) => {
   //   const invitee = invitees.find(invitee => invitee.user_id === userId);
   //   return invitee ? invitee.status : 'not invited';
   // };
-
+  console.log(event);
   return (
     <form>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
@@ -80,13 +78,13 @@ export default function EditEventForm({
                 id="date"
                 name="date"
                 type="date"
-                value={event.date}
+                defaultValue={new Date(event.date).toISOString().split('T')[0]}
                 className="peer block rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               />
             </div>
           </div>
         </div>
-      </div>
+
 
 {/* Time */}
 <div className="mb-4">
@@ -99,7 +97,7 @@ export default function EditEventForm({
                 id="time"
                 name="time"
                 type="time"
-                value={event.time}
+                defaultValue={event.time}
                 className="peer block rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               />
             </div>
@@ -144,11 +142,11 @@ export default function EditEventForm({
       </div> */}
 
 
-
+</div>
 
       <div className="mt-6 flex justify-end gap-4">
         <Link
-          href="/dashboard/invoices"
+          href="/dashboard/events"
           className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
         >
           Cancel

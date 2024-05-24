@@ -80,7 +80,7 @@ const events = [
     title: 'Dinner',
     description: 'Join us for an elegant dinner at Kyoto House. Enjoy fine dining with friends and family.',
     date: '2026-04-03',
-    time: '5:00 PM',
+    time: '17:00:00', 
   },
   {
     id: uuidv4(),
@@ -88,7 +88,7 @@ const events = [
     title: 'Wedding Ceremony',
     description: 'Celebrate the union of our beloved couple. Reception to follow immediately after the ceremony.',
     date: '2027-11-03',
-    time: '4:00 PM',
+    time: '16:00:00', 
   },
   {
     id: uuidv4(),
@@ -96,7 +96,7 @@ const events = [
     title: 'Birthday Bash',
     description: 'Come celebrate with music, food, and fun at the annual birthday bash.',
     date: '2025-04-25',
-    time: '7:00 PM',
+    time: '19:00:00', 
   },
   {
     id: uuidv4(),
@@ -104,7 +104,7 @@ const events = [
     title: 'Company Lunch',
     description: 'Enjoy a casual lunch with colleagues. A great opportunity to network and relax.',
     date: '2025-07-05',
-    time: '12:30 PM',
+    time: '12:30:00', 
   },
   {
     id: uuidv4(),
@@ -112,7 +112,7 @@ const events = [
     title: 'New Year Party',
     description: 'Ring in the new year with a spectacular party. Dance and celebrate with friends.',
     date: '2026-02-02',
-    time: '3:30 PM',
+    time: '15:30:00', 
   },
   {
     id: uuidv4(),
@@ -120,7 +120,7 @@ const events = [
     title: 'Community Gathering',
     description: 'Join the community for an evening of fun activities and socializing.',
     date: '2026-02-02',
-    time: '3:30 PM',
+    time: '15:30:00', 
   },
   {
     id: uuidv4(),
@@ -128,7 +128,7 @@ const events = [
     title: 'Concert Night',
     description: 'Experience an unforgettable night of live music performances.',
     date: '2026-02-02',
-    time: '8:00 PM',
+    time: '20:00:00', 
   },
   {
     id: uuidv4(),
@@ -136,7 +136,7 @@ const events = [
     title: 'Networking Event',
     description: 'Expand your professional network at this interactive event. Bring your business cards.',
     date: '2026-02-02',
-    time: '11:00 AM',
+    time: '11:00:00', 
   },
   {
     id: uuidv4(),
@@ -144,7 +144,7 @@ const events = [
     title: 'Charity Gala',
     description: 'Support a good cause at our annual charity gala. Formal attire required.',
     date: '2026-02-02',
-    time: '5:00 PM',
+    time: '17:00:00', 
   },
   {
     id: uuidv4(),
@@ -152,9 +152,10 @@ const events = [
     title: 'Art Exhibition',
     description: 'Discover amazing artworks at our latest exhibition. Free entry for all.',
     date: '2026-04-03',
-    time: '6:00 PM',
+    time: '18:00:00', 
   },
 ];
+
 
 const eventAttendees = [
   {

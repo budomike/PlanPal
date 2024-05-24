@@ -6,6 +6,7 @@ const {
   eventAttendees 
 } = require('../app/lib/placeholder-data.js');
 const bcrypt = require('bcrypt');
+// TRUNCATE TABLE users RESTART IDENTITY CASCADE;
 
 async function seedUsers(client) {
   try {
@@ -59,7 +60,7 @@ async function seedEvents(client) {
         title VARCHAR(255) NOT NULL,
         description TEXT NOT NULL,
         date DATE NOT NULL,
-        time STRING NOT NULL
+        time TIME NOT NULL
       );
     `;
 

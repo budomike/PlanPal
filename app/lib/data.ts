@@ -38,12 +38,12 @@ export async function fetchFilteredEvents(
   try {
     const events = await sql<EventsTable>`
       SELECT
-        events.id,
+        events.id AS event_id,
         events.title,
         events.description,
         events.date,
         events.time,
-        users.id,
+        users.id AS user_id,
         users.name,
         users.email,
         users.image_url,
@@ -201,25 +201,22 @@ export async function fetchEventById(id: string) {
   try {
     const data = await sql<EventForm>`
       SELECT
-        events.id,
-        events.host_id,
-        events.title,
-        events.description,
-        events.date,
-        events.time
+        id,
+        host_id,
+        title,
+        description,
+        date,
+        time
       FROM events
-      WHERE events.id = ${id};
+      WHERE id = ${id};
     `;
 
-    const event = data.rows.map((event) => ({
-      ...event,
-    }));
-    console.log(event[0]);
-    return event[0];
-    // return data.rows[0] || null;
+    const event = data.rows[0] || null;
+    console.log('Fetched event:', event);
+    return event;
   } catch (error) {
     console.error('Database Error:', error);
-    throw new Error('Failed to fetch invoice.');
+    throw new Error('Failed to fetch event by ID.');
   }
 }
 

@@ -14,7 +14,7 @@ export async function createEvent(formData: FormData) {
       };
 
 const eventId = uuidv4();
-const hostId = 'a28ae69e-8d7d-464f-9f9d-24ec402214bd';
+const hostId = 'a71391e4-b168-41c8-89fd-b9affec2f1d1';
 const { title, description, date, time, invitees } = rawFormData;
 
 console.log(rawFormData);

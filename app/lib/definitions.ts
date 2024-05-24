@@ -29,7 +29,7 @@ export type UserField = {
 };
 
 export type EventsTable = {
-  id: string;
+  event_id: string;
   host_id: string;
   title: string;
   description: string;
