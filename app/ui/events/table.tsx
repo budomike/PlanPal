@@ -15,7 +15,7 @@ export default async function EventsTable({
   const events = await fetchFilteredEvents(query, currentPage);
 
   return (
-<div className="mt-6 flow-root">
+    <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
         <div className="rounded-lg bg-gray-50 p-2 md:pt-0">
           <div className="block lg:hidden">
@@ -30,16 +30,18 @@ export default async function EventsTable({
                       <Image
                         src={event.image_url}
                         className="mr-2 rounded-full"
-                        width={28}
-                        height={28}
+                        width={32}
+                        height={32}
                         alt={`${event.host_id}'s profile picture`}
                       />
-                      <p>{event.host_id}</p>
+                      <div className="flex flex-col">
+                        <p className="text-sm">{event.name}</p>
+                      </div>
                     </div>
-                    <p className="text-sm text-gray-500">{event.title}</p>
                   </div>
                 </div>
-                <div className="flex w-full flex-col justify-between pt-4 space-y-2">
+                <p className="text-sm pt-4 text-gray-500">{event.title}</p>
+                <div className="flex w-full flex-col justify-between space-y-2 pt-4">
                   <div>
                     <p className="text-xl font-medium"></p>
                     <p>{formatDateToLocal(event.date)}</p>
@@ -62,7 +64,10 @@ export default async function EventsTable({
                 <th scope="col" className="px-3 py-5 font-medium">
                   Title
                 </th>
-                <th scope="col" className="px-3 py-5 font-medium hidden 2xl:table-cell">
+                <th
+                  scope="col"
+                  className="hidden px-3 py-5 font-medium 2xl:table-cell"
+                >
                   Description
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
@@ -89,18 +94,16 @@ export default async function EventsTable({
                     <div className="flex items-center gap-3">
                       <Image
                         src={event.image_url}
-                        className="rounded-full"
-                        width={28}
-                        height={28}
+                        className="mr-2 rounded-full"
+                        width={32}
+                        height={32}
                         alt={`${event.name}'s profile picture`}
                       />
                       <p>{event.name}</p>
                     </div>
                   </td>
-                  <td className="whitespace-nowrap px-3 py-3">
-                    {event.title}
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-3 hidden 2xl:table-cell">
+                  <td className="whitespace-nowrap px-3 py-3">{event.title}</td>
+                  <td className="hidden whitespace-nowrap px-3 py-3 2xl:table-cell">
                     {event.description}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
@@ -116,6 +119,8 @@ export default async function EventsTable({
                           key={attendees.user_id}
                           src={attendees.image_url}
                           alt="Attendees"
+                          width={32}
+                          height={32}
                           className="h-8 w-8 rounded-full"
                         />
                       ))}

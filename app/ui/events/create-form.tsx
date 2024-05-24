@@ -103,6 +103,8 @@ export default function Form({ users }: { users: UserField[] }) {
               <Image
           src={user.image_url}
           alt={`${user.name}'s profile picture`}
+          width={32}
+          height={32}
           className="h-8 w-8 rounded-full object-cover"
         />
                 <span className="ml-2 text-sm">{user.name}</span>
