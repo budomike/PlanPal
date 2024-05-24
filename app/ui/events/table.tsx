@@ -111,11 +111,11 @@ export default async function EventsTable({
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
                     <div className="flex space-x-2">
-                      {event.attendees?.map((attendee) => (
-                        <img
-                          key={attendee.user_id}
-                          src={attendee.image_url}
-                          alt="Attendee"
+                      {event.attendees?.map((attendees) => (
+                        <Image
+                          key={attendees.user_id}
+                          src={attendees.image_url}
+                          alt="Attendees"
                           className="h-8 w-8 rounded-full"
                         />
                       ))}

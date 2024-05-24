@@ -6,6 +6,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
 import { createEvent } from '@/app/lib/actions';
+import Image from 'next/image';
 
 export default function Form({ users }: { users: UserField[] }) {
   return (
@@ -99,7 +100,7 @@ export default function Form({ users }: { users: UserField[] }) {
                   value={user.id}
                   className="h-4 w-4 cursor-pointer rounded border-gray-300 focus:ring-gray-500"
                 />
-              <img
+              <Image
           src={user.image_url}
           alt={`${user.name}'s profile picture`}
           className="h-8 w-8 rounded-full object-cover"

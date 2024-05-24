@@ -8,6 +8,7 @@ import {
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { UpdateEvent } from './buttons';
+import Image from 'next/image';
 
 export default function EditEventForm({
   event,
@@ -99,9 +100,6 @@ export default function EditEventForm({
           </div>
         </div>
 
-{/* show invited friends and their status
-    table under to invite new friends
-*/}
 <div className="mb-4">
   <label htmlFor="invitees" className="mb-2 block text-sm font-medium">
   </label>
@@ -111,7 +109,7 @@ export default function EditEventForm({
       <h3 className="text-lg font-medium mb-2">Attending</h3>
       {event.attendee?.filter(attendee => attendee.status === 'attending').map((attendee) => (
         <label key={attendee.user_id} className="flex items-center space-x-2">
-          <img
+          <Image
             src={attendee.image_url}
             alt={`${attendee.name}'s profile picture`}
             className="h-8 w-8 rounded-full object-cover"
@@ -126,7 +124,7 @@ export default function EditEventForm({
       <h3 className="text-lg font-medium mb-2">Maybe</h3>
       {event.attendee?.filter(attendee => attendee.status === 'maybe').map((attendee) => (
         <label key={attendee.user_id} className="flex items-center space-x-2">
-          <img
+          <Image
             src={attendee.image_url}
             alt={`${attendee.name}'s profile picture`}
             className="h-8 w-8 rounded-full object-cover"
@@ -141,7 +139,7 @@ export default function EditEventForm({
       <h3 className="text-lg font-medium mb-2">Not Attending</h3>
       {event.attendee?.filter(attendee => attendee.status === 'not attending').map((attendee) => (
         <label key={attendee.user_id} className="flex items-center space-x-2">
-          <img
+          <Image
             src={attendee.image_url}
             alt={`${attendee.name}'s profile picture`}
             className="h-8 w-8 rounded-full object-cover"
@@ -164,7 +162,7 @@ export default function EditEventForm({
             value={user.id}
             className="h-4 w-4 cursor-pointer rounded border-gray-300 focus:ring-gray-500"
           />
-        <img
+        <Image
           src={user.image_url}
           alt={`${user.name}'s profile picture`}
           className="h-8 w-8 rounded-full object-cover"

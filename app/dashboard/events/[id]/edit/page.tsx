@@ -8,7 +8,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         fetchEventById(id),
         fetchUsers(),
       ]);
-console.log(event.attendee);
+
   return (
     <main>
       <Breadcrumbs
