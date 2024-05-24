@@ -3,13 +3,14 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import { lusitana } from '@/app/ui/fonts';
 import { UpcomingEvent } from '@/app/lib/definitions';
+import { formatTimeTo12Hour } from '@/app/lib/utils';
 export default async function UpcomingEvent({
   upcomingEvent,
 }: {
   upcomingEvent: UpcomingEvent[];
 }) {
   return (
-    <div className="flex w-full flex-col md:col-span-4">
+    <div className="flex w-full flex-col md:col-span-6">
       <h2 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
         Upcoming Events
       </h2>
@@ -50,7 +51,7 @@ export default async function UpcomingEvent({
                 >
               {new Date(event.date).toLocaleDateString(undefined, { month: 'long', day:'numeric', year:'numeric' })}
                 </p>
-                <p>{event.time}</p>
+                <p className={`${lusitana.className}`}>{formatTimeTo12Hour(event.time)}</p>
                 </div>
               </div>
             );

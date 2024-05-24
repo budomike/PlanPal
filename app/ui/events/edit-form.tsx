@@ -16,12 +16,7 @@ export default function EditEventForm({
   event: EventForm;
   users: UserField[];
 }) {
-  // // const updateInvoiceWithId = updateEvent.bind(null, invoice.id);
-  // const getInviteeStatus = (userId: string) => {
-  //   const invitee = invitees.find(invitee => invitee.user_id === userId);
-  //   return invitee ? invitee.status : 'not invited';
-  // };
-  console.log(event);
+
   return (
     <form>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
@@ -104,43 +99,81 @@ export default function EditEventForm({
           </div>
         </div>
 
-
-{/* Invitees */}
-{/* <div className="mb-4">
-        <label htmlFor="invitees" className="mb-2 block text-sm font-medium">
-          Invite Friends
+{/* show invited friends and their status
+    table under to invite new friends
+*/}
+<div className="mb-4">
+  <label htmlFor="invitees" className="mb-2 block text-sm font-medium">
+  </label>
+  <div className="grid grid-cols-3 gap-4">
+    {/* Column for attending */}
+    <div>
+      <h3 className="text-lg font-medium mb-2">Attending</h3>
+      {event.attendee?.filter(attendee => attendee.status === 'attending').map((attendee) => (
+        <label key={attendee.user_id} className="flex items-center space-x-2">
+          <img
+            src={attendee.image_url}
+            alt={`${attendee.name}'s profile picture`}
+            className="h-8 w-8 rounded-full object-cover"
+          />
+          <span className="ml-2 text-sm">{attendee.name}</span>
         </label>
-        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-          {users.map((user) => (
-            <label key={user.id} className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                name="invitees[]"
-                value={user.id}
-                defaultChecked={getInviteeStatus(user.id) !== 'not invited'}
-                className="h-4 w-4 cursor-pointer rounded border-gray-300 focus:ring-gray-500"
-              />
-              <img
-                src={user.image_url}
-                alt={`${user.name}'s profile picture`}
-                className="h-8 w-8 rounded-full object-cover"
-              />
-              <span className="ml-2 text-sm">{user.name}</span>
-              <select
-                name={`status_${user.id}`}
-                defaultValue={getInviteeStatus(user.id)}
-                className="ml-2 rounded border-gray-300"
-              >
-                <option value="invited">Invited</option>
-                <option value="attending">Attending</option>
-                <option value="maybe">Maybe</option>
-                <option value="not attending">Not Attending</option>
-              </select>
-            </label>
-          ))}
-        </div>
-      </div> */}
+      ))}
+    </div>
 
+    {/* Column for maybe */}
+    <div>
+      <h3 className="text-lg font-medium mb-2">Maybe</h3>
+      {event.attendee?.filter(attendee => attendee.status === 'maybe').map((attendee) => (
+        <label key={attendee.user_id} className="flex items-center space-x-2">
+          <img
+            src={attendee.image_url}
+            alt={`${attendee.name}'s profile picture`}
+            className="h-8 w-8 rounded-full object-cover"
+          />
+          <span className="ml-2 text-sm">{attendee.name}</span>
+        </label>
+      ))}
+    </div>
+
+    {/* Column for not attending */}
+    <div>
+      <h3 className="text-lg font-medium mb-2">Not Attending</h3>
+      {event.attendee?.filter(attendee => attendee.status === 'not attending').map((attendee) => (
+        <label key={attendee.user_id} className="flex items-center space-x-2">
+          <img
+            src={attendee.image_url}
+            alt={`${attendee.name}'s profile picture`}
+            className="h-8 w-8 rounded-full object-cover"
+          />
+          <span className="ml-2 text-sm">{attendee.name}</span>
+        </label>
+      ))}
+    </div>
+  </div>
+</div>
+
+<div>
+  <h3 className="text-lg font-medium mb-2">Invite More Friends</h3>
+  <div className="grid grid-cols-3 gap-4">
+    {users.filter(user => !event.attendee.some(attendee => attendee.user_id === user.id)).map(user => (
+      <label key={user.id} className="flex items-center space-x-2">
+        <input
+            type="checkbox"
+            name="invitees[]"
+            value={user.id}
+            className="h-4 w-4 cursor-pointer rounded border-gray-300 focus:ring-gray-500"
+          />
+        <img
+          src={user.image_url}
+          alt={`${user.name}'s profile picture`}
+          className="h-8 w-8 rounded-full object-cover"
+        />
+        <span className="ml-2 text-sm">{user.name}</span>
+      </label>
+    ))}
+  </div>
+</div>
 
 </div>
 

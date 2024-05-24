@@ -1,6 +1,6 @@
 import Form from '@/app/ui/events/edit-form';
 import Breadcrumbs from '@/app/ui/events/breadcrumbs';
-import { fetchUsers, fetchEventById, } from '@/app/lib/data';
+import { fetchUsers, fetchEventById } from '@/app/lib/data';
  
 export default async function Page({ params }: { params: { id: string } }) {
     const id = params.id;
@@ -8,8 +8,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         fetchEventById(id),
         fetchUsers(),
       ]);
-
-      console.log('Event:', event); // Log event data
+console.log(event.attendee);
   return (
     <main>
       <Breadcrumbs
@@ -22,7 +21,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           },
         ]}
       />
-      <Form event={event} users={users} />
+      <Form event={event} users={users}/>
     </main>
   );
 }

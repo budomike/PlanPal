@@ -182,24 +182,10 @@ export async function fetchInvitees(eventId: string) {
   }
 }
 
-export async function fetchInviteesByEventId(eventId: string) {
-  try {
-    const result = await sql<EventAttendees>`
-      SELECT event_id, user_id, status
-      FROM event_attendees
-      WHERE event_id = ${eventId}
-    `;
-    return result.rows;
-  } catch (error) {
-    console.error('Failed to fetch invitees:', error);
-    throw new Error('Failed to fetch invitees.');
-  }
-}
-
 export async function fetchEventById(id: string) {
   noStore();
   try {
-    const data = await sql<EventForm>`
+    const eventData = await sql<EventForm>`
       SELECT
         id,
         host_id,
@@ -211,12 +197,20 @@ export async function fetchEventById(id: string) {
       WHERE id = ${id};
     `;
 
-    const event = data.rows[0] || null;
-    console.log('Fetched event:', event);
+    const event = eventData.rows[0];
+    const attendeesData = await sql<Array<{ user_id: string; name: string; image_url: string; status: string; }>>`
+    SELECT ea.user_id, ea.status, u.name, u.image_url
+    FROM event_attendees AS ea
+    JOIN users AS u ON ea.user_id = u.id
+    WHERE ea.event_id = ${id};
+  `;
+  
+    event.attendee = attendeesData.rows.flat();
     return event;
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch event by ID.');
   }
 }
+
 

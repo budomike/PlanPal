@@ -15,10 +15,10 @@ export default async function EventsTable({
   const events = await fetchFilteredEvents(query, currentPage);
 
   return (
-    <div className="mt-6 flow-root">
+<div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
         <div className="rounded-lg bg-gray-50 p-2 md:pt-0">
-          <div className="md:hidden">
+          <div className="block lg:hidden">
             {events?.map((event) => (
               <div
                 key={event.event_id}
@@ -39,22 +39,21 @@ export default async function EventsTable({
                     <p className="text-sm text-gray-500">{event.title}</p>
                   </div>
                 </div>
-                <div className="flex w-full items-center justify-between pt-4">
+                <div className="flex w-full flex-col justify-between pt-4 space-y-2">
                   <div>
-                    <p className="text-xl font-medium">
-                    </p>
+                    <p className="text-xl font-medium"></p>
                     <p>{formatDateToLocal(event.date)}</p>
                     <p>{formatTimeTo12Hour(event.time)}</p>
                   </div>
-                  <div className="flex justify-end gap-2">
-                     <UpdateEvent id={event.event_id} />
+                  <div className="flex flex-wrap justify-end gap-2 p-2 md:p-4">
+                    <UpdateEvent id={event.event_id} />
                     {/*<DeleteInvoice id={invoice.id} /> */}
                   </div>
                 </div>
               </div>
             ))}
           </div>
-          <table className="hidden min-w-full text-gray-900 md:table">
+          <table className="hidden min-w-full text-gray-900 lg:table">
             <thead className="rounded-lg text-left text-sm font-normal">
               <tr>
                 <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
@@ -81,50 +80,50 @@ export default async function EventsTable({
               </tr>
             </thead>
             <tbody className="bg-white">
-              {events?.map((events) => (
+              {events?.map((event) => (
                 <tr
-                  key={events.event_id}
+                  key={event.event_id}
                   className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
                 >
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex items-center gap-3">
                       <Image
-                        src={events.image_url}
+                        src={event.image_url}
                         className="rounded-full"
                         width={28}
                         height={28}
-                        alt={`${events.name}'s profile picture`}
+                        alt={`${event.name}'s profile picture`}
                       />
-                      <p>{events.name}</p>
+                      <p>{event.name}</p>
                     </div>
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {events.title}
+                    {event.title}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3 hidden 2xl:table-cell">
-                    {events.description}
+                    {event.description}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {formatDateToLocal(events.date)}
+                    {formatDateToLocal(event.date)}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {formatTimeTo12Hour(events.time)}
+                    {formatTimeTo12Hour(event.time)}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                  <div className="flex space-x-2">
-                  {events.attendees?.map((attendee) => (
-                  <img
-                    key={attendee.user_id}
-                    src={attendee.image_url}
-                    alt="Attendee"
-                    className="h-8 w-8 rounded-full"
-                  />
-                ))}
-              </div>
+                    <div className="flex space-x-2">
+                      {event.attendees?.map((attendee) => (
+                        <img
+                          key={attendee.user_id}
+                          src={attendee.image_url}
+                          alt="Attendee"
+                          className="h-8 w-8 rounded-full"
+                        />
+                      ))}
+                    </div>
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
-                    <div className="flex justify-end gap-3">
-                      <UpdateEvent id={events.event_id} />
+                    <div className="flex justify-end gap-2">
+                      <UpdateEvent id={event.event_id} />
                       {/*<DeleteInvoice id={invoice.id} /> */}
                     </div>
                   </td>
