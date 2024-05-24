@@ -14,7 +14,7 @@ export async function createEvent(formData: FormData) {
       };
 
 const eventId = uuidv4();
-const hostId = 'a71391e4-b168-41c8-89fd-b9affec2f1d1';
+const hostId = 'e9733461-08ba-4f68-9e95-811084934f3f';
 const { title, description, date, time, invitees } = rawFormData;
 
 console.log(rawFormData);
@@ -31,4 +31,26 @@ for (const inviteeId of invitees) {
 }
 revalidatePath('/dashboard/events');
 redirect('/dashboard/events');
+}
+
+ 
+export async function updateEvent(id: string, formData: FormData) {
+  const rawFormData = {
+    title: formData.get('title') as string,
+    description: formData.get('description') as string,
+    date: formData.get('date') as string,
+    time: formData.get('time') as string,
+    invitees: formData.getAll('invitees[]') as string[],
+  };
+
+  const { title, description, date, time, invitees } = rawFormData;
+
+  await sql`
+    UPDATE events
+    SET title = ${title}, description = ${description}, date= ${date}, time = ${time}
+    WHERE id = ${id}
+  `;
+ 
+  revalidatePath('/dashboard/events');
+  redirect('/dashboard/events');
 }

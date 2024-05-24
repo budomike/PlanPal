@@ -7,7 +7,7 @@ import {
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
-import { UpdateEvent } from './buttons';
+import { updateEvent } from '@/app/lib/actions';
 import Image from 'next/image';
 
 export default function EditEventForm({
@@ -18,8 +18,10 @@ export default function EditEventForm({
   users: UserField[];
 }) {
 
+  const updateEventWithId = updateEvent.bind(null, event.id);
+
   return (
-    <form>
+    <form action={updateEventWithId}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Event Name */}
         <div className="mb-4">
@@ -142,6 +144,21 @@ export default function EditEventForm({
     <div>
       <h3 className="text-lg font-medium mb-2">Not Attending</h3>
       {event.attendee?.filter(attendee => attendee.status === 'not attending').map((attendee) => (
+        <label key={attendee.user_id} className="flex items-center space-x-2">
+          <Image
+            src={attendee.image_url}
+            alt={`${attendee.name}'s profile picture`}
+            width={32}
+            height={32}
+            className="h-8 w-8 rounded-full object-cover"
+          />
+          <span className="ml-2 text-sm">{attendee.name}</span>
+        </label>
+      ))}
+    </div>
+    <div>
+      <h3 className="text-lg font-medium mb-2">Invited</h3>
+      {event.attendee?.filter(attendee => attendee.status === 'invited').map((attendee) => (
         <label key={attendee.user_id} className="flex items-center space-x-2">
           <Image
             src={attendee.image_url}
