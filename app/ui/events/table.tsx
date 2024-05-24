@@ -44,6 +44,7 @@ export default async function EventsTable({
                     <p className="text-xl font-medium">
                     </p>
                     <p>{formatDateToLocal(event.date)}</p>
+                    <p>{formatTimeTo12Hour(event.time)}</p>
                   </div>
                   <div className="flex justify-end gap-2">
                      <UpdateEvent id={event.event_id} />
@@ -62,7 +63,7 @@ export default async function EventsTable({
                 <th scope="col" className="px-3 py-5 font-medium">
                   Title
                 </th>
-                <th scope="col" className="px-3 py-5 font-medium">
+                <th scope="col" className="px-3 py-5 font-medium hidden 2xl:table-cell">
                   Description
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
@@ -100,7 +101,7 @@ export default async function EventsTable({
                   <td className="whitespace-nowrap px-3 py-3">
                     {events.title}
                   </td>
-                  <td className="whitespace-nowrap px-3 py-3">
+                  <td className="whitespace-nowrap px-3 py-3 hidden 2xl:table-cell">
                     {events.description}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
