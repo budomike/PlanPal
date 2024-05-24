@@ -29,7 +29,7 @@ export type UserField = {
 };
 
 export type EventsTable = {
-  id: string;
+  event_id: string;
   host_id: string;
   title: string;
   description: string;
@@ -55,20 +55,24 @@ export type Event = {
 export type EventAttendees = {
   event_id: string;
   user_id: string;
+  name: string;
+  image_url: string;
   status: 'attending' | 'maybe' | 'not attending' | 'invited';
 };
 
 export type EventForm = {
-  id: string,
-  host_id: string,
-  title: string,
-  description: string, 
-  date: string,
+  id: string;
+  host_id: string;
+  title: string;
+  description: string;
+  date: string;
   time: string;
+  attendee: Array<{user_id: string; image_url: string; name: string; status: string;}>;
+  notInvited: Array<{user_id: string; image_url: string; name: string; status: string;}>
 }
 
 export type UpcomingEvent = {
-  image_url: string,
+  image_url: string;
   id: string;
   host_id: string;
   title: string;

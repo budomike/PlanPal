@@ -1,14 +1,13 @@
 'use client';
 
-import { UserField, EventForm } from '@/app/lib/definitions';
+import { UserField, EventForm, EventAttendees } from '@/app/lib/definitions';
 import {
-  CheckIcon,
-  ClockIcon,
-  CurrencyDollarIcon,
-  UserCircleIcon,
+  InformationCircleIcon,
+  PencilIcon,
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
+import { UpdateEvent } from './buttons';
 
 export default function EditEventForm({
   event,
@@ -17,101 +16,170 @@ export default function EditEventForm({
   event: EventForm;
   users: UserField[];
 }) {
+
   return (
     <form>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
-        {/* Customer Name */}
+        {/* Event Name */}
         <div className="mb-4">
-          <label htmlFor="customer" className="mb-2 block text-sm font-medium">
-            Choose customer
+          <label htmlFor="title" className="mb-2 block text-sm font-medium">
+            Event Title
           </label>
           <div className="relative">
-            <select
-              id="customer"
-              name="customerId"
+            <input
+              id="title"
+              name="title"
+              type="text"
               className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-              defaultValue={event.host_id}
-            >
-              <option value="" disabled>
-                Select a customer
-              </option>
-              {users.map((user) => (
-                <option key={user.id} value={user.id}>
-                  {user.name}
-                </option>
-              ))}
-            </select>
-            <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
+              defaultValue={event.title}
+            />
+
+            <InformationCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
           </div>
         </div>
 
-        {/* Invoice Amount */}
+        {/* Description*/}
+
         <div className="mb-4">
-          <label htmlFor="amount" className="mb-2 block text-sm font-medium">
-            Choose an amount
+          <label
+            htmlFor="description"
+            className="mb-2 block text-sm font-medium"
+          >
+            Event Description
           </label>
           <div className="relative mt-2 rounded-md">
             <div className="relative">
               <input
-                id="amount"
-                name="amount"
-                type="number"
-                step="0.01"
-                defaultValue={event.date}
-                placeholder="Enter USD amount"
+                id="description"
+                name="description"
+                type="text"
+                defaultValue={event.description}
+                placeholder="Enter a description"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               />
-              <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              <PencilIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
           </div>
         </div>
 
-        {/* Invoice Status */}
-        <fieldset>
-          <legend className="mb-2 block text-sm font-medium">
-            Set the invoice status
-          </legend>
-          <div className="rounded-md border border-gray-200 bg-white px-[14px] py-3">
-            <div className="flex gap-4">
-              <div className="flex items-center">
-                <input
-                  id="pending"
-                  name="status"
-                  type="radio"
-                  value="pending"
-                  defaultChecked={event.title === 'pending'}
-                  className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
-                />
-                <label
-                  htmlFor="pending"
-                  className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1.5 text-xs font-medium text-gray-600"
-                >
-                  Pending <ClockIcon className="h-4 w-4" />
-                </label>
-              </div>
-              <div className="flex items-center">
-                <input
-                  id="paid"
-                  name="status"
-                  type="radio"
-                  value="paid"
-                  defaultChecked={event.title === 'paid'}
-                  className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
-                />
-                <label
-                  htmlFor="paid"
-                  className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-green-500 px-3 py-1.5 text-xs font-medium text-white"
-                >
-                  Paid <CheckIcon className="h-4 w-4" />
-                </label>
-              </div>
+        {/* Date */}
+        <div className="mb-4">
+          <label htmlFor="date" className="mb-2 block text-sm font-medium">
+            Pick a date
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <div className="relative">
+              <input
+                id="date"
+                name="date"
+                type="date"
+                defaultValue={new Date(event.date).toISOString().split('T')[0]}
+                className="peer block rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+              />
             </div>
           </div>
-        </fieldset>
-      </div>
+        </div>
+
+
+{/* Time */}
+<div className="mb-4">
+          <label htmlFor="time" className="mb-2 block text-sm font-medium">
+            Event Time
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <div className="relative">
+              <input
+                id="time"
+                name="time"
+                type="time"
+                defaultValue={event.time}
+                className="peer block rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+              />
+            </div>
+          </div>
+        </div>
+
+{/* show invited friends and their status
+    table under to invite new friends
+*/}
+<div className="mb-4">
+  <label htmlFor="invitees" className="mb-2 block text-sm font-medium">
+  </label>
+  <div className="grid grid-cols-3 gap-4">
+    {/* Column for attending */}
+    <div>
+      <h3 className="text-lg font-medium mb-2">Attending</h3>
+      {event.attendee?.filter(attendee => attendee.status === 'attending').map((attendee) => (
+        <label key={attendee.user_id} className="flex items-center space-x-2">
+          <img
+            src={attendee.image_url}
+            alt={`${attendee.name}'s profile picture`}
+            className="h-8 w-8 rounded-full object-cover"
+          />
+          <span className="ml-2 text-sm">{attendee.name}</span>
+        </label>
+      ))}
+    </div>
+
+    {/* Column for maybe */}
+    <div>
+      <h3 className="text-lg font-medium mb-2">Maybe</h3>
+      {event.attendee?.filter(attendee => attendee.status === 'maybe').map((attendee) => (
+        <label key={attendee.user_id} className="flex items-center space-x-2">
+          <img
+            src={attendee.image_url}
+            alt={`${attendee.name}'s profile picture`}
+            className="h-8 w-8 rounded-full object-cover"
+          />
+          <span className="ml-2 text-sm">{attendee.name}</span>
+        </label>
+      ))}
+    </div>
+
+    {/* Column for not attending */}
+    <div>
+      <h3 className="text-lg font-medium mb-2">Not Attending</h3>
+      {event.attendee?.filter(attendee => attendee.status === 'not attending').map((attendee) => (
+        <label key={attendee.user_id} className="flex items-center space-x-2">
+          <img
+            src={attendee.image_url}
+            alt={`${attendee.name}'s profile picture`}
+            className="h-8 w-8 rounded-full object-cover"
+          />
+          <span className="ml-2 text-sm">{attendee.name}</span>
+        </label>
+      ))}
+    </div>
+  </div>
+</div>
+
+<div>
+  <h3 className="text-lg font-medium mb-2">Invite More Friends</h3>
+  <div className="grid grid-cols-3 gap-4">
+    {users.filter(user => !event.attendee.some(attendee => attendee.user_id === user.id)).map(user => (
+      <label key={user.id} className="flex items-center space-x-2">
+        <input
+            type="checkbox"
+            name="invitees[]"
+            value={user.id}
+            className="h-4 w-4 cursor-pointer rounded border-gray-300 focus:ring-gray-500"
+          />
+        <img
+          src={user.image_url}
+          alt={`${user.name}'s profile picture`}
+          className="h-8 w-8 rounded-full object-cover"
+        />
+        <span className="ml-2 text-sm">{user.name}</span>
+      </label>
+    ))}
+  </div>
+</div>
+
+</div>
+
       <div className="mt-6 flex justify-end gap-4">
         <Link
-          href="/dashboard/invoices"
+          href="/dashboard/events"
           className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
         >
           Cancel

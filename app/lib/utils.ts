@@ -6,11 +6,20 @@ export const formatDateToLocal = (
   const options: Intl.DateTimeFormatOptions = {
     day: 'numeric',
     month: 'long',
-    year: 'numeric',
+    year: 'numeric'
   };
   const formatter = new Intl.DateTimeFormat(locale, options);
   return formatter.format(date);
 };
+
+export const formatTimeTo12Hour = (timeStr: string) => {
+  const [hours, minutes] = timeStr.split(':');
+  let hour = parseInt(hours);
+  const period = hour >= 12 ? 'PM' : 'AM';
+  hour = hour % 12 || 12;
+  return `${hour}:${minutes} ${period}`;
+};
+
 
 
 export const generatePagination = (currentPage: number, totalPages: number) => {
