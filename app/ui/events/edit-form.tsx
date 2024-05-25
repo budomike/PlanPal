@@ -119,6 +119,12 @@ export default function EditEventForm({
             className="h-8 w-8 rounded-full object-cover"
           />
           <span className="ml-2 text-sm">{attendee.name}</span>
+          <select defaultValue={attendee.status} id={`attendance-${attendee.user_id}`} name={`attendance-${attendee.user_id}`}>
+            <option value="attending">Attending</option>
+            <option value="maybe">Maybe</option>
+            <option value="not attending">Not Attending</option>
+            <option value="invited">Invited</option>
+          </select>
         </label>
       ))}
     </div>
@@ -136,6 +142,12 @@ export default function EditEventForm({
             className="h-8 w-8 rounded-full object-cover"
           />
           <span className="ml-2 text-sm">{attendee.name}</span>
+          <select defaultValue={attendee.status} id={`attendance-${attendee.user_id}`} name={`attendance-${attendee.user_id}`}>
+            <option value="attending">Attending</option>
+            <option value="maybe">Maybe</option>
+            <option value="not attending">Not Attending</option>
+            <option value="invited">Invited</option>
+          </select>
         </label>
       ))}
     </div>
@@ -153,6 +165,12 @@ export default function EditEventForm({
             className="h-8 w-8 rounded-full object-cover"
           />
           <span className="ml-2 text-sm">{attendee.name}</span>
+          <select defaultValue={attendee.status} id={`attendance-${attendee.user_id}`} name={`attendance-${attendee.user_id}`}>
+            <option value="attending">Attending</option>
+            <option value="maybe">Maybe</option>
+            <option value="not attending">Not Attending</option>
+            <option value="invited">Invited</option>
+          </select>
         </label>
       ))}
     </div>
@@ -168,6 +186,12 @@ export default function EditEventForm({
             className="h-8 w-8 rounded-full object-cover"
           />
           <span className="ml-2 text-sm">{attendee.name}</span>
+          <select defaultValue={attendee.status} id={`attendance-${attendee.user_id}`} name={`attendance-${attendee.user_id}` }>
+          <option value="attending">Attending</option>
+            <option value="maybe">Maybe</option>
+            <option value="not attending">Not Attending</option>
+            <option value="invited">Invited</option>
+          </select>
         </label>
       ))}
     </div>
