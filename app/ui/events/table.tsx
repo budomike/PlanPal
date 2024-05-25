@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import { UpdateEvent, DeleteEvent } from '@/app/ui/events/buttons';
-import InvoiceStatus from '@/app/ui/events/status';
 import { formatDateToLocal, formatTimeTo12Hour } from '@/app/lib/utils';
 import { fetchFilteredEvents } from '@/app/lib/data';
 import clsx from 'clsx';
+import React from 'react';
 
 export default async function EventsTable({
   query,
@@ -40,7 +40,7 @@ export default async function EventsTable({
                     </div>
                   </div>
                 </div>
-                <p className="text-sm pt-4 text-gray-500">{event.title}</p>
+                <p className="pt-4 text-sm text-gray-500">{event.title}</p>
                 <div className="flex w-full flex-col justify-between space-y-2 pt-4">
                   <div>
                     <p className="text-xl font-medium"></p>
@@ -64,12 +64,7 @@ export default async function EventsTable({
                 <th scope="col" className="px-3 py-5 font-medium">
                   Title
                 </th>
-                <th
-                  scope="col"
-                  className="hidden px-3 py-5 font-medium 2xl:table-cell"
-                >
-                  Description
-                </th>
+
                 <th scope="col" className="px-3 py-5 font-medium">
                   Date
                 </th>
@@ -86,53 +81,67 @@ export default async function EventsTable({
             </thead>
             <tbody className="bg-white">
               {events?.map((event) => (
-                <tr
-                  key={event.event_id}
-                  className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
-                >
-                  <td className="whitespace-nowrap py-3 pl-6 pr-3">
-                    <div className="flex items-center gap-3">
-                      <Image
-                        src={event.image_url}
-                        className="mr-2 rounded-full"
-                        width={32}
-                        height={32}
-                        alt={`${event.name}'s profile picture`}
-                      />
-                      <p>{event.name}</p>
-                    </div>
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-3">{event.title}</td>
-                  <td className="hidden whitespace-nowrap px-3 py-3 2xl:table-cell">
-                    {event.description}
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-3">
-                    {formatDateToLocal(event.date)}
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-3">
-                    {formatTimeTo12Hour(event.time)}
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-3">
-                    <div className="flex space-x-2">
-                      {event.attendees?.map((attendees) => (
+                <React.Fragment key={event.event_id}>
+                  <tr className="w-full py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg">
+                    <td className="whitespace-nowrap py-3 pl-6 pr-3">
+                      <div className="flex items-center gap-3">
                         <Image
-                          key={attendees.user_id}
-                          src={attendees.image_url}
-                          alt="Attendees"
+                          src={event.image_url}
+                          className="mr-2 rounded-full"
                           width={32}
                           height={32}
-                          className="h-8 w-8 rounded-full"
+                          alt={`${event.name}'s profile picture`}
                         />
-                      ))}
-                    </div>
-                  </td>
-                  <td className="whitespace-nowrap py-3 pl-6 pr-3">
-                    <div className="flex justify-end gap-2">
-                      <UpdateEvent id={event.event_id} />
-                      <DeleteEvent id={event.event_id} />
-                    </div>
-                  </td>
-                </tr>
+                        <p>{event.name}</p>
+                      </div>
+                    </td>
+                    <td className="whitespace-nowrap px-3 py-3">
+                      {event.title}
+                    </td>
+
+                    <td className="whitespace-nowrap px-3 py-3">
+                      {formatDateToLocal(event.date)}
+                    </td>
+                    <td className="whitespace-nowrap px-3 py-3">
+                      {formatTimeTo12Hour(event.time)}
+                    </td>
+                    <td className="whitespace-nowrap px-3 py-3">
+                      <div className="flex space-x-2">
+                        {event.attendees
+                          ?.slice(0, 3)
+                          .map((attendees) => (
+                            <Image
+                              key={attendees.user_id}
+                              src={attendees.image_url}
+                              alt="Attendees"
+                              width={32}
+                              height={32}
+                              className="h-8 w-8 rounded-full"
+                            />
+                          ))}
+                        {event.attendees && event.attendees.length > 3 && (
+                          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-300 text-sm">
+                            +{event.attendees.length - 3}
+                          </div>
+                        )}
+                      </div>
+                    </td>
+                    <td className="whitespace-nowrap py-3 pl-6 pr-3">
+                      <div className="flex justify-end gap-2">
+                        <UpdateEvent id={event.event_id} />
+                        <DeleteEvent id={event.event_id} />
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      colSpan={6}
+                      className="hidden border-b border-gray-500 px-3 py-3 lg:table-cell"
+                    >
+                      <p>{event.description}</p>
+                    </td>
+                  </tr>
+                </React.Fragment>
               ))}
             </tbody>
           </table>
