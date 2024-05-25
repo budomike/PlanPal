@@ -50,7 +50,14 @@ export async function updateEvent(id: string, formData: FormData) {
     SET title = ${title}, description = ${description}, date= ${date}, time = ${time}
     WHERE id = ${id}
   `;
- 
+  
+  for (const invitee of invitees) {
+    await sql`
+      INSERT INTO event_attendees (event_id, user_id, status)
+      VALUES (${id}, ${invitee}, 'invited')
+    `
+  }
+
   revalidatePath('/dashboard/events');
   redirect('/dashboard/events');
 }
