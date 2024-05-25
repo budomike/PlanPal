@@ -10,7 +10,7 @@ export default async function UpcomingEvent({
   upcomingEvent: UpcomingEvent[];
 }) {
   return (
-    <div className="flex w-full flex-col md:col-span-6">
+    <div className="flex w-full flex-col md:col-span-4">
       <h2 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
         Upcoming Events
       </h2>

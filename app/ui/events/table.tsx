@@ -49,7 +49,7 @@ export default async function EventsTable({
                   </div>
                   <div className="flex flex-wrap justify-end gap-2 p-2 md:p-4">
                     <UpdateEvent id={event.event_id} />
-                    {/*<DeleteInvoice id={invoice.id} /> */}
+                    <DeleteEvent id={event.event_id} />
                   </div>
                 </div>
               </div>
@@ -129,7 +129,7 @@ export default async function EventsTable({
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-2">
                       <UpdateEvent id={event.event_id} />
-                      {/*<DeleteInvoice id={invoice.id} /> */}
+                      <DeleteEvent id={event.event_id} />
                     </div>
                   </td>
                 </tr>
