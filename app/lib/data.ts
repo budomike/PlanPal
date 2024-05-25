@@ -27,7 +27,7 @@ export async function fetchEvent() {
 }
 
 
-const ITEMS_PER_PAGE = 8;
+const ITEMS_PER_PAGE = 6;
 export async function fetchFilteredEvents(
   query: string,
   currentPage: number,
@@ -57,7 +57,8 @@ export async function fetchFilteredEvents(
       JOIN users ON events.host_id = users.id
       WHERE
         users.name ILIKE ${`%${query}%`} OR
-        events.title ILIKE ${`%${query}%`}
+        events.title ILIKE ${`%${query}%`} OR
+        events.description ILIKE ${`%${query}%`}
       ORDER BY events.date ASC, events.time ASC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
