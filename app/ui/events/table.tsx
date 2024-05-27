@@ -13,6 +13,8 @@ export default async function EventsTable({
   currentPage: number;
 }) {
   const events = await fetchFilteredEvents(query, currentPage);
+  const currentDate = new Date();
+  const upcomingEvents = events.filter(event => new Date(event.date) >= currentDate);
 
   return (
     <div className="mt-6 flow-root">
@@ -58,20 +60,19 @@ export default async function EventsTable({
           <table className="hidden min-w-full text-gray-900 lg:table">
             <thead className="rounded-lg text-left text-sm font-normal">
               <tr>
-                <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
+                <th scope="col" className="px-4 font-medium sm:pl-6">
                   Host
                 </th>
-                <th scope="col" className="px-3 py-5 font-medium">
+                <th scope="col" className="px-3  font-medium">
                   Title
                 </th>
-
-                <th scope="col" className="px-3 py-5 font-medium">
+                <th scope="col" className="px-3 font-medium">
                   Date
                 </th>
-                <th scope="col" className="px-3 py-5 font-medium">
+                <th scope="col" className="px-3 font-medium">
                   Time
                 </th>
-                <th scope="col" className="px-3 py-5 font-medium">
+                <th scope="col" className="px-3 font-medium">
                   Who&apos;s Attending
                 </th>
                 <th scope="col" className="relative py-3 pl-6 pr-3">
@@ -98,7 +99,6 @@ export default async function EventsTable({
                     <td className="whitespace-nowrap px-3 py-3">
                       {event.title}
                     </td>
-
                     <td className="whitespace-nowrap px-3 py-3">
                       {formatDateToLocal(event.date)}
                     </td>
@@ -134,10 +134,7 @@ export default async function EventsTable({
                     </td>
                   </tr>
                   <tr>
-                    <td
-                      colSpan={6}
-                      className="hidden border-b border-gray-500 px-3 py-3 lg:table-cell"
-                    >
+                    <td colSpan={6}>
                       <p>{event.description}</p>
                     </td>
                   </tr>
