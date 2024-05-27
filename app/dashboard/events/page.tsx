@@ -3,9 +3,12 @@ import Search from '@/app/ui/search';
 import Table from '@/app/ui/events/table';
 import { CreateEvent } from '@/app/ui/events/buttons';
 import { lusitana } from '@/app/ui/fonts';
-import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
-import { Suspense } from 'react';
 import { fetchEventsPages } from '@/app/lib/data';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Events',
+};
  
 export default async function Page({
   searchParams,

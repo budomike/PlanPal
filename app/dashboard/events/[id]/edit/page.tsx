@@ -2,6 +2,12 @@ import Form from '@/app/ui/events/edit-form';
 import Breadcrumbs from '@/app/ui/events/breadcrumbs';
 import { fetchUsers, fetchEventById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Edit an Event',
+};
+ 
  
 export default async function Page({ params }: { params: { id: string } }) {
     const id = params.id;

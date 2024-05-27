@@ -3,6 +3,8 @@ import { sql } from '@vercel/postgres';
 const { v4: uuidv4 } = require('uuid');
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { signIn } from '@/auth';
+import { AuthError } from 'next-auth';
  
 export async function createEvent(formData: FormData) {
     const rawFormData = {
@@ -98,4 +100,23 @@ export async function deleteEvent(id: string) {
   await sql`DELETE FROM event_attendees WHERE event_id = ${id}`;
   await sql`DELETE FROM events WHERE id = ${id}`;
   revalidatePath('/dashboard/events');
+}
+
+export async function authenticate(
+  prevState: string | undefined,
+  formData: FormData,
+) {
+  try {
+    await signIn('credentials', formData);
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case 'CredentialsSignin':
+          return 'Invalid credentials.';
+        default:
+          return 'Something went wrong.';
+      }
+    }
+    throw error;
+  }
 }

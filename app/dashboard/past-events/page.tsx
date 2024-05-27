@@ -3,6 +3,12 @@ import Search from '@/app/ui/search';
 import Table from '@/app/ui/events/past-events-table';
 import { lusitana } from '@/app/ui/fonts';
 import { fetchPastEventsPages } from '@/app/lib/data';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Past Events',
+};
+ 
  
 export default async function Page({
   searchParams,
