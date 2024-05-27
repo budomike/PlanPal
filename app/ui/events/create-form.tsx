@@ -24,6 +24,7 @@ export default function Form({ users }: { users: UserField[] }) {
               type="text"
               placeholder="Enter a title"
               className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+              required
             />
             <InformationCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
           </div>
@@ -63,6 +64,7 @@ export default function Form({ users }: { users: UserField[] }) {
                 name="date"
                 type="date"
                 className="peer block rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                required
               />
             </div>
           </div>
@@ -80,6 +82,7 @@ export default function Form({ users }: { users: UserField[] }) {
                 name="time"
                 type="time"
                 className="peer block rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                required
               />
             </div>
           </div>
@@ -114,8 +117,6 @@ export default function Form({ users }: { users: UserField[] }) {
         </div>
         </fieldset>
       </div>
-      
-
       <div className="mt-6 flex justify-end gap-4">
         <Link
           href="/dashboard/events"
