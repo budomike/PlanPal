@@ -51,7 +51,15 @@ export default async function PastEventsTable({
               </div>
             ))}
           </div>
-          <table className="hidden min-w-full text-gray-900 lg:table">
+          <table className="hidden min-w-full text-gray-900 lg:table table-fixed">
+            <colgroup>
+              <col style={{ width: '20%' }} />
+              <col style={{ width: '25%' }} />
+              <col style={{ width: '15%' }} />
+              <col style={{ width: '15%' }} />
+              <col style={{ width: '15%' }} />
+              <col style={{ width: '10%' }} />
+            </colgroup>
             <thead className="rounded-lg text-left text-sm font-normal">
               <tr>
                 <th scope="col" className="px-4 pb-5 font-medium sm:pl-6">

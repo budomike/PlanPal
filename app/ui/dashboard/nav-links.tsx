@@ -16,12 +16,12 @@ const links = [
   {
     name: 'Upcoming Events',
     href: '/dashboard/events',
-    icon: CalendarIcon,
+    icon: CalendarDaysIcon,
   },
   {
     name: 'Past Events',
     href: '/dashboard/past-events',
-    icon: CalendarDaysIcon,
+    icon: CalendarIcon,
   }
 ];
 
