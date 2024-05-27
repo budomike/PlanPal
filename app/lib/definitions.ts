@@ -42,6 +42,20 @@ export type EventsTable = {
   attendees: Array<{ user_id: string; image_url: string }>;
 }
 
+export type PastEventsTable = {
+  event_id: string;
+  host_id: string;
+  title: string;
+  description: string;
+  date: string;
+  time: string;
+  image_url: string;
+  name: string;
+  email: string;
+  user_id: string;
+  attendees: Array<{ user_id: string; image_url: string }>;
+}
+
 export type Event = {
   image_url: string;
   id: string;
@@ -72,6 +86,16 @@ export type EventForm = {
 }
 
 export type UpcomingEvent = {
+  image_url: string;
+  id: string;
+  host_id: string;
+  title: string;
+  date: string;
+  name: string;
+  time: string;
+}
+
+export type PastEvent = {
   image_url: string;
   id: string;
   host_id: string;

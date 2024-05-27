@@ -1,18 +1,18 @@
 import Image from 'next/image';
 import { UpdateEvent, DeleteEvent } from '@/app/ui/events/buttons';
 import { formatDateToLocal, formatTimeTo12Hour } from '@/app/lib/utils';
-import { fetchFilteredEvents } from '@/app/lib/data';
+import { fetchFilteredPastEvents } from '@/app/lib/data';
 import clsx from 'clsx';
 import React from 'react';
 
-export default async function EventsTable({
+export default async function PastEventsTable({
   query,
   currentPage,
 }: {
   query: string;
   currentPage: number;
 }) {
-  const events = await fetchFilteredEvents(query, currentPage);
+  const events = await fetchFilteredPastEvents(query, currentPage);
 
   return (
     <div className="mt-6 flow-root">
@@ -47,10 +47,6 @@ export default async function EventsTable({
                     <p>{formatDateToLocal(event.date)}</p>
                     <p>{formatTimeTo12Hour(event.time)}</p>
                   </div>
-                  <div className="flex flex-wrap justify-end gap-2 p-2 md:p-4">
-                    <UpdateEvent id={event.event_id} />
-                    <DeleteEvent id={event.event_id} />
-                  </div>
                 </div>
               </div>
             ))}
@@ -71,7 +67,7 @@ export default async function EventsTable({
                   Time
                 </th>
                 <th scope="col" className="px-3 pb-5 font-medium">
-                  Who&apos;s Attending
+                  Who Attended
                 </th>
                 <th scope="col" className="relative py-3 pl-6 pr-3">
                   <span className="sr-only">Edit</span>
@@ -124,15 +120,9 @@ export default async function EventsTable({
                         )}
                       </div>
                     </td>
-                    <td className="whitespace-nowrap py-3 pl-6 pr-3">
-                      <div className="flex justify-end gap-2">
-                        <UpdateEvent id={event.event_id} />
-                        <DeleteEvent id={event.event_id} />
-                      </div>
-                    </td>
                   </tr>
                   <tr>
-                    <td colSpan={6} className="px-3 py-3">
+                    <td colSpan={4} className="px-3 py-3">
                       <p>{event.description}</p>
                     </td>
                   </tr>

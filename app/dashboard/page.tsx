@@ -1,11 +1,12 @@
 
 import UpcomingEvent from '@/app/ui/dashboard/upcoming-events';
+import PastEvent from '../ui/dashboard/past-events';
 import { lusitana } from '@/app/ui/fonts';
-import { fetchUpcomingEvents } from '../lib/data';
+import { fetchUpcomingEvents, fetchPastEvents } from '../lib/data';
  
 export default async function Page() {
   const upcomingEvents = await fetchUpcomingEvents();
-
+  const pastEvents = await fetchPastEvents();
   return (
     <main>
       <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
@@ -15,6 +16,7 @@ export default async function Page() {
       </div>
       <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
         <UpcomingEvent upcomingEvent={upcomingEvents} />
+        <PastEvent pastEvent={pastEvents} />
       </div>
     </main>
   );

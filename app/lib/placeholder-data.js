@@ -3,7 +3,7 @@ const { v4: uuidv4 } = require('uuid');
 const users = [
   {
     id: uuidv4(),
-    name: 'User',
+    name: 'Host User',
     email: 'user@nextmail.com',
     password: '123456',
     image_url: '/users/emil-kowalski.png',

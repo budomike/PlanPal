@@ -2,8 +2,8 @@
 
 import {
   HomeIcon,
-  DocumentDuplicateIcon,
-  CalendarIcon
+  CalendarIcon,
+  CalendarDaysIcon
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -18,6 +18,11 @@ const links = [
     href: '/dashboard/events',
     icon: CalendarIcon,
   },
+  {
+    name: 'Past Events',
+    href: '/dashboard/past-events',
+    icon: CalendarDaysIcon,
+  }
 ];
 
 export default function NavLinks() {
