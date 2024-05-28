@@ -26,7 +26,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         breadcrumbs={[
           { label: 'Events', href: '/dashboard/events' },
           {
-            label: 'Edit Invoice',
+            label: 'Edit Event',
             href: `/dashboard/events/${id}/edit`,
             active: true,
           },

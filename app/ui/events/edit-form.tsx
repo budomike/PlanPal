@@ -234,7 +234,7 @@ export default function EditEventForm({
         >
           Cancel
         </Link>
-        <Button type="submit">Edit Invoice</Button>
+        <Button type="submit">Edit Event</Button>
       </div>
     </form>
   );
