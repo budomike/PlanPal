@@ -8,6 +8,7 @@ import { AuthError } from 'next-auth';
  
 export async function createEvent(formData: FormData) {
     const rawFormData = {
+        host: formData.get('host') as string,
         title: formData.get('title') as string,
         description: formData.get('description') as string,
         date: formData.get('date') as string,
@@ -16,13 +17,12 @@ export async function createEvent(formData: FormData) {
       };
 
 const eventId = uuidv4();
-const hostId = '6e864549-6e78-4eda-a7b9-4d35eacec9b7';
-const { title, description, date, time, invitees } = rawFormData;
+const { title, description, date, time, invitees, host } = rawFormData;
 
 try{
 await sql`
 INSERT INTO events (id, title, description, date, time, host_id)
-VALUES (${eventId}, ${title}, ${description}, ${date}, ${time}, ${hostId})
+VALUES (${eventId}, ${title}, ${description}, ${date}, ${time}, ${host})
 `;
 } catch (error) {
   return {message: 'Database Error: Failed to Create Event.',

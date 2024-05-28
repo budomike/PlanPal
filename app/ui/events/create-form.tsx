@@ -2,7 +2,8 @@ import { UserField } from '@/app/lib/definitions';
 import Link from 'next/link';
 import {
   PencilIcon,
-  InformationCircleIcon
+  InformationCircleIcon,
+  UserCircleIcon
 } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
 import { createEvent } from '@/app/lib/actions';
@@ -12,7 +13,33 @@ export default function Form({ users }: { users: UserField[] }) {
   return (
     <form action={createEvent}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
-        {/* Customer Name */}
+      {/* Host */}
+      <div className="mb-4">
+          <label htmlFor="host" className="mb-2 block text-sm font-medium">
+            Host
+          </label>
+          <div className="relative">
+          <select
+              id="host"
+              name="host"
+              className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+              defaultValue=""
+              required
+            >
+              <option value="" disabled>
+                Select a Host
+              </option>
+              {users.map((user) => (
+                <option key={user.id} value={user.id}>
+                  {user.name}
+                </option>
+              ))}
+            </select>
+            <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
+          </div>
+        </div>
+
+        {/* Event Title */}
         <div className="mb-4">
           <label htmlFor="title" className="mb-2 block text-sm font-medium">
             Event Title
