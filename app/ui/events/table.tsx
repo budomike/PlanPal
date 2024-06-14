@@ -4,7 +4,7 @@ import { formatDateToLocal, formatTimeTo12Hour } from '@/app/lib/utils';
 import { fetchFilteredEvents } from '@/app/lib/data';
 import clsx from 'clsx';
 import React from 'react';
-import TableRow from '@/app/ui/events/tablerow';  // Import the new component
+import TableRow from '@/app/ui/events/tablerow'; 
 
 export default async function EventsTable({
   query,
