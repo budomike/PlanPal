@@ -1,5 +1,7 @@
 # Planpal - An Events Management Platform
 
+https://planpal-lac.vercel.app/
+
 This project is a platform designed to help users create, update, delete, and view events. It provides a user-friendly interface for managing events and attendees, with features for filtering and paginating event lists. 
 
 ## Features
