@@ -4,8 +4,9 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { UpdateEvent, DeleteEvent } from '@/app/ui/events/buttons';
 import { formatDateToLocal, formatTimeTo12Hour } from '@/app/lib/utils';
+import { EventsTable } from '@/app/lib/definitions';
 
-function TableRow({ event, showActions }) {
+function TableRow({ event, showActions }: {event: EventsTable, showActions:boolean}) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const handleToggle = () => {

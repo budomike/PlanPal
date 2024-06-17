@@ -18,7 +18,7 @@ export function UpdateEvent({ id }: { id: string }) {
   return (
     <Link
       href={`/dashboard/events/${id}/edit`}
-      className="rounded-md border p-2 hover:bg-gray-100"
+      className="rounded-md border p-2 hover:bg-sky-600"
     >
       <PencilIcon className="w-5" />
     </Link>
@@ -31,7 +31,7 @@ export function DeleteEvent({ id }: { id: string }) {
   return (
     <>
       <form action={deleteEventWithId}>
-      <button className="rounded-md border p-2 hover:bg-gray-100">
+      <button className="rounded-md border p-2 hover:bg-red-400">
         <span className="sr-only">Delete</span>
         <TrashIcon className="w-5" />
       </button>
