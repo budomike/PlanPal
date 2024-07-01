@@ -15,7 +15,7 @@ export default function WeatherForecast() {
 
     const getWeatherForecast = async () => {
         const apiKey = process.env.NEXT_PUBLIC_API_ACCESS_KEY;
-        const api = await fetch (`http://api.openweathermap.org/data/2.5/forecast?lat=43.653226&lon=-79.3831843&appid=${apiKey}&units=metric`)
+        const api = await fetch (`https://api.openweathermap.org/data/2.5/forecast?lat=43.653226&lon=-79.3831843&appid=${apiKey}&units=metric`)
         const data: WeatherResponse = await api.json();
         const afternoonDailyData = extractDailyData(data.list, "12:00:00");
         const eveningDailyData = extractDailyData(data.list, "18:00:00")
