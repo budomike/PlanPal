@@ -1,5 +1,6 @@
 import UpcomingEvent from '@/app/ui/dashboard/upcoming-events';
 import PastEvent from '../ui/dashboard/past-events';
+import WeatherForecast from '../api/weatherApi';
 import { lusitana } from '@/app/ui/fonts';
 import { fetchUpcomingEvents, fetchPastEvents } from '../lib/data';
 
@@ -12,6 +13,7 @@ export default async function Page() {
       <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
         Dashboard
       </h1>
+      <WeatherForecast />
       <div className="mt-6 flex flex-col md:flex-row">
         <div className="flex-grow md:w-1/2">
           <UpcomingEvent upcomingEvent={upcomingEvents} />

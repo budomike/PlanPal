@@ -104,3 +104,38 @@ export type PastEvent = {
   name: string;
   time: string;
 }
+
+export type Weather = {
+  id: number;
+  main: string;
+  description: string;
+  icon: string;
+}
+
+export type Main = {
+  temp: number;
+  feels_like: number;
+  temp_min: number;
+  temp_max: number;
+  humidity: number;
+}
+
+export type Wind = {
+  speed: number;
+  deg: number;
+  gust: number;
+}
+
+export type WeatherData = {
+  dt: number;
+  main: Main;
+  weather: Weather[];
+  wind: Wind;
+  visibility: number;
+  pop: number;
+  dt_txt: string;
+}
+
+export type WeatherResponse = {
+  list: WeatherData[];
+}
